@@ -1,0 +1,37 @@
+---
+title: "Stat240 Final Group Project Proposal Group 6"
+author: "David Cheon, Anneka Cassel, Mingyang Lian, Ninjin Chingunbayar"
+date: "2025-11-07"
+output: html_document
+---
+
+## Group member names:
+ - David Cheon(dcheon2@wisc.edu)
+ - Anneka Cassel (ajcassel@wisc.edu)
+ - Mingyang Lian(mianyangshishen@gmail.com)
+ - Ninjin Chingunbayar (chingunbayar@wisc.edu)
+
+## Description of communication:
+We will meet at 12 pm every Friday.
+We have a group chat, a GitHub repository, and a Google Doc to share our works
+
+## Questions of interest:
+Is there a relationship between the runtime of a show or movie and its weekly rank?
+
+## Links for the dataset:
+Official Netflix Viewership Database:  
+ https://www.kaggle.com/datasets/shivamb/netflix-shows
+
+ 
+## Description of the data:
+Netflix has an official viewership database where they collect data on the top shows and movies in both English and non-English. The top 10, released on Tuesday, show the data for the previous week. They take data such as runtime and hours viewed to rank each show or movie. This data was collected by monitoring each media’s viewer activity to know what people are interested in watching, and to report this data to their viewers. Each row represents a show or movie in the top 10 for that week. For our question of interest, the columns that are most important are the weekly rank and the runtime.
+
+## Outline of the graph:
+We will draw a scatter plot, with the horizontal axis representing the runtime of a program or movie and the vertical axis representing its weekly rank, to observe whether longer works are more likely to achieve higher or lower rankings.
+
+We will draw a trend line to help us to see the overall trend clearly, such as whether longer videos show an upward or downward trend in rankings.
+
+## Inference: 
+We will use simple linear regression to examine the relationship between show or movie runtime and its weekly rank on Netflix. Our goal is to determine whether longer or shorter runtimes are associated with higher or lower weekly ranking. 
+In this model, weekly rank will be the response variable (y), and runtime will be the predictor variable (x).
+We will fit a linear model to estimate how changes in runtime affect the weekly rank and test whether the slope of the regression line is significantly different from zero. 
