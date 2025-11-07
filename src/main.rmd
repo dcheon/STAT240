@@ -1,0 +1,24 @@
+---
+title: "Stat240 Final Group Project Group 6"
+author: "David Cheon, Anneka Cassel, Mingyang Lian, Ninjin Chingunbayar"
+date: "2025-11-07"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE,
+                      warning = FALSE, error = TRUE,
+                      fig.height = 3)
+library(tidyverse)
+```
+```{r}
+all_weeks_countries <- read_csv("..\\data\\all-weeks-countries.csv")
+all_weeks_global <- read_csv("..\\data\\all-weeks-global.csv")
+most_popular <- read_csv("..\\data\\most-popular.csv")
+```
+```{r}
+all_weeks_countries
+all_weeks_global
+most_popular
+```
+
