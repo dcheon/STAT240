@@ -38,6 +38,9 @@ all_weeks_global %>%
   ) +
   theme_minimal()
 ```
+we can use linear regression 
+H0: there is no linear relationship between film duration and weekly rankings $\beta_1$ = 0
+Ha: $\beta_1$ != 0
 
 
 The proportion of different film length groups entering the top 3 of the weekly ranking. First, we categorize the films by length into "short films (<1.5 hours)", 
