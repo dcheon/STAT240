@@ -20,19 +20,21 @@ all_weeks_global <- read_csv(
   show_col_types = FALSE
 )
 ```
-Each blue dot: represents a record of a film in a certain week. 
+#First plot
+Each green dot: represents a record of a film in a certain week. 
 The further to the right of the horizontal coordinate, the longer the film is (the more hours it has). 
 The higher the vertical axis is, the better the weekly ranking will be (1 is the first place, and 10 is relatively lower).
 
-```{r runtime-rank-plot, fig.height=4.5, fig.width=6.5}
+```{r runtime-rank-films-plot, fig.height=4.5, fig.width=6.5}
 all_weeks_global %>%
+  filter(str_detect(category, "Films")) %>%
   drop_na(runtime, weekly_rank) %>%
   ggplot(aes(x = runtime, y = weekly_rank)) +
-  geom_point(alpha = 0.4, color = "#1f77b4") +
-  geom_smooth(method = "lm", se = FALSE, color = "#d62728") +
+  geom_point(alpha = 0.4, color = "#2ca02c") +
+  geom_smooth(method = "lm", se = FALSE, color = "#ff7f0e") +
   scale_y_reverse() +
   labs(
-    title = "Runtime vs. Weekly Rank",
+    title = "Runtime vs. Weekly Rank (Films only)",
     x = "Runtime (hours)",
     y = "Weekly Rank (1 = highest)"
   ) +
@@ -42,7 +44,7 @@ we can use linear regression
 H0: there is no linear relationship between film duration and weekly rankings $\beta_1$ = 0
 Ha: $\beta_1$ != 0
 
-
+#Second
 The proportion of different film length groups entering the top 3 of the weekly ranking. First, we categorize the films by length into "short films (<1.5 hours)", 
 "medium films (1.5-2 hours)" and "long films (≥2 hours)", and then calculate what proportion of records in each group rank in the top 3. 
 The taller the column is, the more likely it is that this type of film length will appear in the top 3 of the weekly chart.
