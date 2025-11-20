@@ -1,0 +1,75 @@
+---
+title: "plot (draft)"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE
+)
+library(tidyverse)
+```
+
+```{r load-data}
+all_weeks_global <- read_csv(
+  "data/all-weeks-global.csv",
+  show_col_types = FALSE
+)
+```
+Each blue dot: represents a record of a film in a certain week. 
+The further to the right of the horizontal coordinate, the longer the film is (the more hours it has). 
+The higher the vertical axis is, the better the weekly ranking will be (1 is the first place, and 10 is relatively lower).
+
+```{r runtime-rank-plot, fig.height=4.5, fig.width=6.5}
+all_weeks_global %>%
+  drop_na(runtime, weekly_rank) %>%
+  ggplot(aes(x = runtime, y = weekly_rank)) +
+  geom_point(alpha = 0.4, color = "#1f77b4") +
+  geom_smooth(method = "lm", se = FALSE, color = "#d62728") +
+  scale_y_reverse() +
+  labs(
+    title = "Runtime vs. Weekly Rank",
+    x = "Runtime (hours)",
+    y = "Weekly Rank (1 = highest)"
+  ) +
+  theme_minimal()
+```
+
+
+The proportion of different film length groups entering the top 3 of the weekly ranking. First, we categorize the films by length into "short films (<1.5 hours)", 
+"medium films (1.5-2 hours)" and "long films (≥2 hours)", and then calculate what proportion of records in each group rank in the top 3. 
+The taller the column is, the more likely it is that this type of film length will appear in the top 3 of the weekly chart.
+
+```{r runtime-top3-bar, fig.height=4, fig.width=6}
+runtime_summary <- all_weeks_global %>%
+  drop_na(runtime, weekly_rank) %>%
+  mutate(
+    runtime_group = case_when(
+      runtime < 1.5 ~ "Short (<1.5h)",
+      runtime < 2   ~ "Medium (1.5–2h)",
+      TRUE          ~ "Long (≥2h)"
+    ),
+    top3 = weekly_rank <= 3
+  ) %>%
+  group_by(runtime_group) %>%
+  summarise(
+    prop_top3 = mean(top3),
+    n = n(),
+    .groups = "drop"
+  )
+
+runtime_summary %>%
+  ggplot(aes(x = runtime_group, y = prop_top3)) +
+  geom_col(fill = "#1f77b4") +
+  ylim(0, 1) +
+  labs(
+    title = "Proportion of Weeks in Top 3 by Runtime Group",
+    x = "Runtime group",
+    y = "Proportion of weeks in Top 3"
+  ) +
+  theme_minimal()
+```
